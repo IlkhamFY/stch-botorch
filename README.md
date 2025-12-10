@@ -61,14 +61,19 @@ where $\mu > 0$ is a smoothing parameter. As $\mu \to 0$, STCH converges to TCH.
 
 STCH-Set optimizes a batch of $q$ candidates to collectively cover all objectives. It uses nested smoothing:
 
-1. **Inner aggregation** (smooth min over batch): For each objective $i$ and candidate $k$:
-   $$R_{ik} = w_i (z^*_i - y_{ik})$$
-   $$R_i^{min} = -\mu \log\left(\sum_k \exp\left(\frac{-R_{ik}}{\mu}\right)\right)$$
+**1. Inner aggregation** (smooth min over batch): For each objective $i$ and candidate $k$:
 
-2. **Outer aggregation** (smooth max over objectives):
-   $$S = \mu \log\left(\sum_i \exp\left(\frac{R_i^{min}}{\mu}\right)\right)$$
+$$R_{ik} = w_i (z^*_i - y_{ik})$$
 
-3. **Utility**: $U_{STCH-Set} = -S$
+$$R_i^{\min} = -\mu \log\left(\sum_k \exp\left(\frac{-R_{ik}}{\mu}\right)\right)$$
+
+**2. Outer aggregation** (smooth max over objectives):
+
+$$S = \mu \log\left(\sum_i \exp\left(\frac{R_i^{\min}}{\mu}\right)\right)$$
+
+**3. Utility:**
+
+$$U_{STCH\text{-}Set} = -S$$
 
 This aggregates over the $q$ dimension, returning a single scalar per batch.
 
